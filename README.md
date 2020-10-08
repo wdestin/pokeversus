@@ -1,5 +1,7 @@
 # PokeVersus
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/22d04f1c-feb1-40b8-a795-1955edb28b12/deploy-status)](https://app.netlify.com/sites/epic-galileo-fa287c/deploys)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.3.
 
 ## Development server
