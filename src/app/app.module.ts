@@ -9,9 +9,10 @@ import { SearchComponent } from './search/search.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PokemonsComponent } from './pokemons/pokemons.component';
 import { PokemonsComparisonComponent } from './pokemons-comparison/pokemons-comparison.component';
+import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
 
 @NgModule({
-  declarations: [AppComponent, FooterComponent, HeroComponent, SearchComponent, PokemonsComponent, PokemonsComparisonComponent],
+  declarations: [AppComponent, FooterComponent, HeroComponent, SearchComponent, PokemonsComponent, PokemonsComparisonComponent, PokemonCardComponent],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],

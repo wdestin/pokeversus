@@ -1,0 +1,13 @@
+.container app-pokemon-card {
+  cursor: pointer;
+  margin: 0.5em;
+}
+
+.compare-btn {
+  position: fixed;
+  left: 50%;
+  bottom: 5%;
+  transform: translate(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+}

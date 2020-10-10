@@ -3,9 +3,11 @@
     <input
       type="text"
       class="form-control form-control-lg"
-      id="searchInput"
+      #searchBox
+      id="searchBox"
       aria-describedby="searchHelp"
-      placeholder="Type a Pokemon name..."
+      placeholder="Filter pokemon by name..."
+      (input)="search(searchBox.value)"
     />
     <small id="searchHelp" class="form-text text-muted">
       Try Charizard, Mimikyu, Lucario or Greninja...

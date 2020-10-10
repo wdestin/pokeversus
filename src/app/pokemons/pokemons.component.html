@@ -1,31 +1,18 @@
 <div class="container">
-  <div class="row">
-    <div class="col-sm">
-      <div class="card text-center" style="width: 18rem">
-        <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <img src="..." class="card-img-top" alt="..." />
-          <h5 class="card-title">Card title</h5>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm">
-      <div class="card text-center" style="width: 18rem">
-        <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <img src="..." class="card-img-top" alt="..." />
-          <h5 class="card-title">Card title</h5>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm">
-      <div class="card text-center" style="width: 18rem">
-        <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <img src="..." class="card-img-top" alt="..." />
-          <h5 class="card-title">Card title</h5>
-        </div>
-      </div>
-    </div>
+  <div class="row justify-content-between">
+    <app-pokemon-card
+      *ngFor="let pokemon of pokemons"
+      [pokemon]="pokemon"
+      (onSelection)="onSelect($event)"
+    ></app-pokemon-card>
   </div>
+</div>
+<div *ngIf="selectedPokemons.length > 0">
+  <a
+    class="btn btn-primary btn-lg compare-btn"
+    routerLink="pokemons/{{ selectedPokemons[0] }}/{{ selectedPokemons[1] }}"
+    role="button"
+  >
+    Compare the {{ selectedPokemons.length }} selected pokemon
+  </a>
 </div>
