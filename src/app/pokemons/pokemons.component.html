@@ -3,6 +3,7 @@
     <app-pokemon-card
       *ngFor="let pokemon of pokemons"
       [pokemon]="pokemon"
+      [selectedPokemons]="selectedPokemons"
       (onSelection)="onSelect($event)"
     ></app-pokemon-card>
   </div>

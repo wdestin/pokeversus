@@ -8,6 +8,7 @@ import { Pokemon } from '../pokemon';
 })
 export class PokemonCardComponent implements OnInit {
   @Input() pokemon: Pokemon;
+  @Input() selectedPokemons: number[];
   @Output() onSelection = new EventEmitter<number>();
 
   constructor() {}

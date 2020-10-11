@@ -1,12 +1,12 @@
-<div class="col-sm" (click)="onSelect(pokemon.id)">
-  <div class="card text-center" style="width: 18rem">
+<div class="col-sm pokemon-card-container" (click)="onSelect(pokemon.id)">
+  <div
+    class="card text-center"
+    [class.selected]="selectedPokemons.includes(pokemon.id)"
+    style="width: 10rem"
+  >
     <div class="card-body">
       <h6 class="card-subtitle mb-2 text-muted">{{ pokemon.id }}</h6>
-      <img
-        src="{{ pokemon.sprite }}"
-        class="card-img-top"
-        alt="{{ pokemon.name }} sprite"
-      />
+      <img src="{{ pokemon.sprite }}" alt="{{ pokemon.name }} sprite" />
       <h5 class="card-title">{{ pokemon.name | titlecase }}</h5>
     </div>
   </div>
