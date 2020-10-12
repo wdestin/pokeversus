@@ -5,4 +5,14 @@
   transform: translate(-50%);
   -webkit-transform: translateX(-50%);
   -moz-transform: translateX(-50%);
+  animation: fadein 0.2s ease-in;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

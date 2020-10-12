@@ -5,7 +5,9 @@
     style="width: 10rem"
   >
     <div class="card-body">
-      <h6 class="card-subtitle mb-2 text-muted">{{ pokemon.id }}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">
+        {{ pokemon.id | leadingZeroes }}
+      </h6>
       <img src="{{ pokemon.sprite }}" alt="{{ pokemon.name }} sprite" />
       <h5 class="card-title">{{ pokemon.name | titlecase }}</h5>
     </div>
