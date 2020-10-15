@@ -1,1 +1,17 @@
-<p>pokemons-comparison works!</p>
+<div class="container text-center">
+  <img src="{{ pokemon1.sprite }}" alt="{{ pokemon2.name }} sprite" />
+  <h1>{{ pokemon1.name | titlecase }} vs {{ pokemon2.name | titlecase }}</h1>
+</div>
+<div class="container text-center">
+  <div>
+    <canvas
+      baseChart
+      [chartType]="radarChartType"
+      [datasets]="chartData"
+      [labels]="chartLabels"
+      [options]="chartOptions"
+      [legend]="true"
+    >
+    </canvas>
+  </div>
+</div>

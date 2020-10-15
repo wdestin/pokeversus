@@ -5,7 +5,7 @@ import { PokemonsComparisonComponent } from './pokemons-comparison/pokemons-comp
 
 const routes: Routes = [
   { path: '', component: PokemonsComponent },
-  { path: 'pokemons/:id1/:id2', component: PokemonsComparisonComponent },
+  { path: 'compare/:id1/:id2', component: PokemonsComparisonComponent },
 ];
 
 @NgModule({

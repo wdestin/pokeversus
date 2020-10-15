@@ -14,9 +14,9 @@
 <div *ngIf="selectedPokemons.length > 0">
   <a
     class="btn btn-primary btn-lg compare-btn"
-    routerLink="pokemons/{{ selectedPokemons[0] }}/{{ selectedPokemons[1] }}"
+    routerLink="compare/{{ selectedPokemons[0] }}/{{ selectedPokemons[1] }}"
     role="button"
   >
-    Compare the {{ selectedPokemons.length }} selected pokemon
+    Compare the {{ selectedPokemons.length }} selected pokemons
   </a>
 </div>
