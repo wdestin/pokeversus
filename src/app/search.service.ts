@@ -9,6 +9,7 @@ export class SearchService {
   searchTerms$ = this._searchTerms.asObservable();
 
   search(term: string): void {
+    term.trim();
     this._searchTerms.next(term);
   }
 }

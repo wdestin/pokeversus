@@ -1,123 +1,94 @@
 import { Injectable } from '@angular/core';
 import { Pokemon } from './pokemon';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, map, tap, delay } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
-  pokemon1: Pokemon = {
-    id: 815,
-    name: 'cinderace',
-    sprite:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/815.png',
-    base_experience: 265,
-    height: 14,
-    weight: 330,
-    hp: 80,
-    attack: 116,
-    defense: 75,
-    specialAttack: 65,
-    specialDefense: 75,
-    speed: 119,
+  private cacheName: string = 'pokemon';
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
+  private apiUrl = 'https://pokeapi.co/api/v2/pokemon';
+  private pokemons: Pokemon[] = [];
+  private _pokemons = new Subject<Pokemon[]>();
+  pokemons$ = this._pokemons.asObservable();
 
-  pokemon2: Pokemon = {
-    id: 4,
-    name: 'charmander',
-    sprite:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
-    base_experience: 265,
-    height: 14,
-    weight: 330,
-    hp: 39,
-    attack: 52,
-    defense: 43,
-    specialAttack: 60,
-    specialDefense: 50,
-    speed: 65,
-  };
-
-  pokemon3: Pokemon = {
-    id: 132,
-    name: 'ditto',
-    sprite:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png',
-    base_experience: 265,
-    height: 14,
-    weight: 330,
-    hp: 48,
-    attack: 48,
-    defense: 75,
-    specialAttack: 48,
-    specialDefense: 48,
-    speed: 48,
-  };
-
-  pokemon4: Pokemon = {
-    id: 25,
-    name: 'pikachu',
-    sprite:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
-    base_experience: 265,
-    height: 14,
-    weight: 330,
-    hp: 35,
-    attack: 55,
-    defense: 40,
-    specialAttack: 50,
-    specialDefense: 50,
-    speed: 90,
-  };
-
-  pokemon5: Pokemon = {
-    id: 491,
-    name: 'darkrai',
-    sprite:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/491.png',
-    base_experience: 265,
-    height: 14,
-    weight: 330,
-    hp: 70,
-    attack: 90,
-    defense: 90,
-    specialAttack: 135,
-    specialDefense: 90,
-    speed: 125,
-  };
-
-  pokemon6: Pokemon = {
-    id: 251,
-    name: 'celebi',
-    sprite:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/251.png',
-    base_experience: 265,
-    height: 14,
-    weight: 330,
-    hp: 100,
-    attack: 100,
-    defense: 100,
-    specialAttack: 100,
-    specialDefense: 100,
-    speed: 100,
-  };
-
-  pokemons: Pokemon[] = [
-    this.pokemon1,
-    this.pokemon2,
-    this.pokemon3,
-    this.pokemon4,
-    this.pokemon5,
-    this.pokemon6,
-  ];
-
-  constructor() {}
-
-  getPokemons(): Pokemon[] {
-    return this.pokemons;
+  constructor(private http: HttpClient) {
+    this.fetchPokemons();
   }
 
-  getPokemonsByName(name: string): Pokemon[] {
-    return this.pokemons.filter((pokemon) => pokemon.name.includes(name));
+  private generateUrls(): string[] {
+    let urls: string[] = [];
+    let i = 1;
+
+    for (i = 1; i <= 893; i++) {
+      urls.push(`${this.apiUrl}/${i}`);
+    }
+    return urls;
+  }
+
+  private storePokemonsToCache(): void {
+    caches.open(this.cacheName).then((cache) => {
+      let urls: string[] = this.generateUrls();
+      cache.addAll(urls).then(() => {
+        console.log('Data cached');
+      });
+    });
+  }
+
+  private retrievePokemonsFromCache(): void {
+    caches.open(this.cacheName).then((cache) => {
+      cache.keys().then((keys) => {
+        keys.forEach((request) => {
+          cache
+            .match(request)
+            .then((response) => response.json())
+            .then((data) => {
+              let pokemon: Pokemon = {
+                id: data.id,
+                name: data.name,
+                sprite: data.sprites.front_default,
+                hp: data.stats[0] === undefined ? 0 : data.stats[0].base_stat,
+                attack:
+                  data.stats[1] === undefined ? 0 : data.stats[1].base_stat,
+                defense:
+                  data.stats[2] === undefined ? 0 : data.stats[2].base_stat,
+                specialAttack:
+                  data.stats[3] === undefined ? 0 : data.stats[3].base_stat,
+                specialDefense:
+                  data.stats[4] === undefined ? 0 : data.stats[4].base_stat,
+                speed:
+                  data.stats[5] === undefined ? 0 : data.stats[5].base_stat,
+              };
+              this.pokemons.push(pokemon);
+              this.pokemons.sort((a, b) => a.id - b.id);
+            });
+        });
+      });
+    });
+    this._pokemons.next(this.pokemons);
+  }
+
+  private fetchPokemons(): void {
+    caches.has(this.cacheName).then((response) => {
+      console.log(response);
+      if (response === true) {
+        this.retrievePokemonsFromCache();
+      } else {
+        this.storePokemonsToCache();
+        this.retrievePokemonsFromCache();
+      }
+    });
+  }
+
+  getPokemonsByName(name: string): void {
+    this._pokemons.next(
+      this.pokemons.filter((pokemon) => pokemon.name.includes(name))
+    );
   }
 
   getPokemon(id: number): Pokemon {

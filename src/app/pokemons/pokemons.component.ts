@@ -11,6 +11,8 @@ import { Pokemon } from '../pokemon';
 export class PokemonsComponent implements OnInit {
   pokemons: Pokemon[];
   selectedPokemons: number[] = new Array();
+  numberOfPokemonsToLoad: number = 30;
+  numberOfPokemonsToShow: number = this.numberOfPokemonsToLoad;
 
   constructor(
     private searchService: SearchService,
@@ -18,10 +20,16 @@ export class PokemonsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.pokemons = this.pokemonService.getPokemons();
-    this.searchService.searchTerms$.subscribe((terms) => {
-      this.pokemons = this.pokemonService.getPokemonsByName(terms);
+    this.pokemonService.pokemons$.subscribe((pokemons) => {
+      this.pokemons = pokemons;
     });
+    this.searchService.searchTerms$.subscribe((terms) => {
+      this.pokemonService.getPokemonsByName(terms);
+    });
+  }
+
+  onScroll() {
+    this.numberOfPokemonsToShow += this.numberOfPokemonsToLoad;
   }
 
   onSelect(selectedId: number) {

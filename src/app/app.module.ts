@@ -12,6 +12,10 @@ import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
 import { LeadingZeroesPipe } from './leading-zeroes.pipe';
 import { HeaderComponent } from './header/header.component';
 import { ChartsModule } from 'ng2-charts';
+import { HttpClientModule } from '@angular/common/http';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,15 @@ import { ChartsModule } from 'ng2-charts';
     PokemonCardComponent,
     LeadingZeroesPipe,
   ],
-  imports: [BrowserModule, FormsModule, AppRoutingModule, ChartsModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    ChartsModule,
+    HttpClientModule,
+    InfiniteScrollModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

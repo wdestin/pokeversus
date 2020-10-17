@@ -29,9 +29,9 @@ export class PokemonsComparisonComponent implements OnInit {
     let id = +this.route.snapshot.paramMap.get('id1');
     let id2 = +this.route.snapshot.paramMap.get('id2');
     this.pokemon1 = this.pokemonService.getPokemon(id);
-    this.pushPokemonToData(this.pokemon1);
+    if (this.pokemon1) this.pushPokemonToData(this.pokemon1);
     this.pokemon2 = this.pokemonService.getPokemon(id2);
-    this.pushPokemonToData(this.pokemon2);
+    if (this.pokemon2) this.pushPokemonToData(this.pokemon2);
   }
 
   pushPokemonToData(pokemon: Pokemon): void {
