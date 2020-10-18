@@ -28,21 +28,27 @@ export class PokemonsComparisonComponent implements OnInit {
   ngOnInit(): void {
     let id = +this.route.snapshot.paramMap.get('id1');
     let id2 = +this.route.snapshot.paramMap.get('id2');
-    this.pokemon1 = this.pokemonService.getPokemon(id);
-    if (this.pokemon1) this.pushPokemonToData(this.pokemon1);
-    this.pokemon2 = this.pokemonService.getPokemon(id2);
-    if (this.pokemon2) this.pushPokemonToData(this.pokemon2);
+
+    this.pokemonService.getPokemon(id).then((pokemon) => {
+      this.pokemon1 = pokemon;
+      this.pushPokemonToData(this.pokemon1);
+    });
+
+    this.pokemonService.getPokemon(id2).then((pokemon) => {
+      this.pokemon2 = pokemon;
+      this.pushPokemonToData(this.pokemon2);
+    });
   }
 
   pushPokemonToData(pokemon: Pokemon): void {
     let dataSet: ChartDataSets = {
       data: [
-        pokemon.hp,
-        pokemon.attack,
-        pokemon.defense,
-        pokemon.speed,
-        pokemon.specialDefense,
-        pokemon.specialAttack,
+        pokemon.stats[0].base_stat,
+        pokemon.stats[1].base_stat,
+        pokemon.stats[2].base_stat,
+        pokemon.stats[5].base_stat,
+        pokemon.stats[4].base_stat,
+        pokemon.stats[3].base_stat,
       ],
       label: pokemon.name.toUpperCase(),
     };

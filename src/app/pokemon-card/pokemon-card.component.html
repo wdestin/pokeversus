@@ -1,13 +1,15 @@
-<div class="col-sm pokemon-card-container" (click)="onSelect(pokemon.id)">
+<div class="col pokemon-card-container" (click)="onSelect(pokemon.id)">
   <div
     class="card text-center"
     [class.selected]="selectedPokemons.includes(pokemon.id)"
-    style="width: 10rem"
   >
     <div class="card-body">
-      <img src="{{ pokemon.sprite }}" alt="{{ pokemon.name }} sprite" />
+      <img
+        src="{{ pokemon.sprites.front_default }}"
+        alt="{{ pokemon.name }} sprite"
+      />
       <h5 class="card-title">{{ pokemon.name | titlecase }}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">
+      <h6 class="card-subtitle mb-2">
         {{ pokemon.id | leadingZeroes }}
       </h6>
     </div>

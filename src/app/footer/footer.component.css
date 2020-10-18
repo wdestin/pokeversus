@@ -1,5 +1,10 @@
 footer {
   margin-top: 1em;
-  background-color: #e9ecef;
+  background-color: #3a5c9a;
+  color: white;
   padding: 2.5rem 0;
+}
+
+footer a {
+  color: #fbe059;
 }

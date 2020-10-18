@@ -1,8 +1,9 @@
 <div class="container">
   <app-search></app-search>
+  <hr class="my-4">
 </div>
 <div
-  class="container"
+  class="container pkmn-list-container"
   infiniteScroll
   [infiniteScrollDistance]="1"
   [infiniteScrollThrottle]="50"
@@ -15,7 +16,7 @@
   </div>
   <div
     *ngIf="pokemons && pokemons.length > 0"
-    class="row justify-content-between"
+    class="row justify-content-center"
   >
     <app-pokemon-card
       *ngFor="let pokemon of pokemons.slice(0, numberOfPokemonsToShow)"
@@ -25,12 +26,12 @@
     ></app-pokemon-card>
   </div>
 </div>
-<div *ngIf="selectedPokemons.length > 0">
+<div *ngIf="selectedPokemons.length > 1">
   <a
-    class="btn btn-primary btn-lg compare-btn"
+    class="btn btn-lg compare-btn"
     routerLink="compare/{{ selectedPokemons[0] }}/{{ selectedPokemons[1] }}"
     role="button"
   >
-    Compare the {{ selectedPokemons.length }} selected pokemons
+    Compare the {{ selectedPokemons.length }} selected Pokémons
   </a>
 </div>

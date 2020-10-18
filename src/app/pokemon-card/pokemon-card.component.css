@@ -1,20 +1,21 @@
 .pokemon-card-container .card {
   cursor: pointer;
   margin: 0.5em;
+  min-width: 10rem;
 }
 
 .pokemon-card-container .card:hover {
-  background-color: #ddd;
-  color: #607d8b;
+  background-color: #4382b4;
+  color: white;
   left: 0.1em;
 }
 
 .pokemon-card-container .card.selected {
-  background-color: #cfd8dc;
+  background-color: #436bb4;
   color: white;
 }
 
 .pokemon-card-container .card.selected:hover {
-  background-color: #bbd8dc;
+  background-color: #182741;
   color: white;
 }

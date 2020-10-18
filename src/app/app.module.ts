@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';  
+
 
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
@@ -12,7 +14,6 @@ import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
 import { LeadingZeroesPipe } from './leading-zeroes.pipe';
 import { HeaderComponent } from './header/header.component';
 import { ChartsModule } from 'ng2-charts';
-import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -30,12 +31,14 @@ import { environment } from '../environments/environment';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule,
     AppRoutingModule,
     ChartsModule,
-    HttpClientModule,
     InfiniteScrollModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
