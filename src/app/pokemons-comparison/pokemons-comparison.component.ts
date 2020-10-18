@@ -12,8 +12,6 @@ import { Pokemon } from '../pokemon';
 })
 export class PokemonsComparisonComponent implements OnInit {
   pokemons: Pokemon[] = [];
-  pokemon1: Pokemon;
-  pokemon2: Pokemon;
   radarChartType: ChartType = 'radar';
   chartOptions: RadialChartOptions = {
     responsive: true,
@@ -32,9 +30,10 @@ export class PokemonsComparisonComponent implements OnInit {
       .map(Number)
       .forEach((id: number) => {
         this.pokemonService.getPokemon(id).then((pokemon) => {
-          console.log(pokemon);
           this.pokemons.push(pokemon);
-          this.pushPokemonToData(pokemon);
+          setTimeout(() => {
+            this.pushPokemonToData(pokemon);
+          }, 100);
         });
       });
   }
