@@ -1,14 +1,15 @@
-<div *ngIf="pokemon1 && pokemon2">
+<div *ngIf="pokemons.length > 0">
   <div class="container text-center">
-    <img
-      src="{{ pokemon1.sprites.front_default }}"
-      alt="{{ pokemon1.name }} sprite"
-    />
-    <img
-      src="{{ pokemon2.sprites.front_default }}"
-      alt="{{ pokemon2.name }} sprite"
-    />
-    <h1>{{ pokemon1.name | titlecase }} vs {{ pokemon2.name | titlecase }}</h1>
+    <div
+      class="d-inline p-2"
+      *ngFor="let pokemon of pokemons; let isLast = last"
+    >
+      <img
+        src="{{ pokemon.sprites.front_default }}"
+        alt="{{ pokemon.name }} sprite"
+      />
+      <span *ngIf="!isLast">vs</span>
+    </div>
   </div>
   <div class="container text-center">
     <div>

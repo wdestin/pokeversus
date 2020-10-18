@@ -29,9 +29,11 @@
 <div *ngIf="selectedPokemons.length > 1">
   <a
     class="btn btn-lg compare-btn"
-    routerLink="compare/{{ selectedPokemons[0] }}/{{ selectedPokemons[1] }}"
+    routerLink="compare"
+    [queryParams]="{ pokemon: selectedPokemons.toString() }"
     role="button"
   >
     Compare the {{ selectedPokemons.length }} selected Pokémons
   </a>
 </div>
+<!-- routerLink="compare/{{ selectedPokemons[0] }}/{{ selectedPokemons[1] }}" -->
