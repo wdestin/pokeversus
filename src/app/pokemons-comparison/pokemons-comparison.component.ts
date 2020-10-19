@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChartDataSets, ChartType, RadialChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
@@ -10,7 +10,7 @@ import { Pokemon } from '../pokemon';
   templateUrl: './pokemons-comparison.component.html',
   styleUrls: ['./pokemons-comparison.component.css'],
 })
-export class PokemonsComparisonComponent implements OnInit {
+export class PokemonsComparisonComponent implements AfterViewInit {
   pokemons: Pokemon[] = [];
   radarChartType: ChartType = 'radar';
   chartOptions: RadialChartOptions = {
@@ -24,7 +24,7 @@ export class PokemonsComparisonComponent implements OnInit {
     private pokemonService: PokemonService
   ) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.route.snapshot.queryParams.pokemon
       .split(',')
       .map(Number)

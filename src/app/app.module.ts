@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';  
-
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
@@ -13,6 +12,7 @@ import { PokemonsComparisonComponent } from './pokemons-comparison/pokemons-comp
 import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
 import { LeadingZeroesPipe } from './leading-zeroes.pipe';
 import { HeaderComponent } from './header/header.component';
+import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -34,6 +34,7 @@ import { environment } from '../environments/environment';
     CommonModule,
     FormsModule,
     AppRoutingModule,
+    HttpClientModule,
     ChartsModule,
     InfiniteScrollModule,
     ServiceWorkerModule.register('ngsw-worker.js', {

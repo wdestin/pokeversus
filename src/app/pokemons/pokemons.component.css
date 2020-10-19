@@ -12,6 +12,7 @@
 
 .compare-btn:hover {
   background-color: #fb7f59;
+  left: 50.2%;
 }
 
 @keyframes fadein {
