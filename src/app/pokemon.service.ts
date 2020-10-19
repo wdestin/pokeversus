@@ -20,6 +20,16 @@ export class PokemonService {
     return urls;
   }
 
+  private isCacheEmpty(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      caches.open(environment.cacheName).then((cache) => {
+        cache.keys().then((keys) => {
+          resolve(keys.length === 0);
+        });
+      });
+    });
+  }
+
   private storePokemonsToCache(): Promise<void> {
     return new Promise((resolve, reject) => {
       caches.open(environment.cacheName).then((cache) => {
@@ -36,16 +46,29 @@ export class PokemonService {
     return new Promise((resolve, reject) => {
       caches.open(environment.cacheName).then((cache) => {
         cache.keys().then((keys) => {
-          keys.forEach((request) => {
+          keys.forEach((request, index, array) => {
             cache
               .match(request)
               .then((response) => response.json())
               .then((data) => {
                 this.pokemons.push(data);
                 this.pokemons.sort((a, b) => a.id - b.id);
+                if (index === array.length - 1) resolve();
               });
           });
-          resolve();
+        });
+      });
+    });
+  }
+
+  private retrievePokemonsFromAPI(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      let urls: string[] = this.generateUrls();
+      urls.forEach((url, index, array) => {
+        this.http.get<Pokemon>(url).subscribe((pokemon) => {
+          this.pokemons.push(pokemon);
+          this.pokemons.sort((a, b) => a.id - b.id);
+          if (index === array.length - 1) resolve();
         });
       });
     });
@@ -59,27 +82,14 @@ export class PokemonService {
           if (response === false) {
             this.storePokemonsToCache().then(() => resolve());
           } else {
-            caches.open(environment.cacheName).then((cache) => {
-              cache.keys().then((keys) => {
-                if (keys.length > 0) {
-                  this.retrievePokemonsFromCache().then(() => resolve());
-                } else {
-                  this.storePokemonsToCache().then(() => resolve());
-                }
-              });
+            this.isCacheEmpty().then((isEmpty) => {
+              if (isEmpty) this.storePokemonsToCache().then(() => resolve());
+              else this.retrievePokemonsFromCache().then(() => resolve());
             });
           }
         })
-        .catch((reason) => {
-          console.log(`hahahahahha ${reason}`);
-          let urls: string[] = this.generateUrls();
-          urls.forEach((url) => {
-            this.http.get<Pokemon>(url).subscribe((pokemon) => {
-              this.pokemons.push(pokemon);
-              this.pokemons.sort((a, b) => a.id - b.id);
-            });
-          });
-          resolve();
+        .catch(() => {
+          this.retrievePokemonsFromAPI().then(() => resolve());
         });
     });
   }
@@ -129,8 +139,7 @@ export class PokemonService {
               );
             }
           })
-          .catch((reason) => {
-            console.log(`haha x22222 = ${reason}`);
+          .catch(() => {
             this.http
               .get<Pokemon>(`${environment.apiUrl}/${id}`)
               .subscribe((pokemon) => resolve(pokemon));
