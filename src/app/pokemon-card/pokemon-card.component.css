@@ -1,7 +1,6 @@
 .pokemon-card-container .card {
   cursor: pointer;
-  margin: 0.5em;
-  min-width: 10rem;
+  width: 10rem;
 }
 
 .pokemon-card-container .card:hover {

@@ -1,3 +1,29 @@
+.pkmn-list-container {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  grid-column-gap: 0.5em;
+  grid-row-gap: 0.5em;
+  justify-content: center;
+}
+
+@media (max-width: 1000px) {
+  .pkmn-list-container {
+    grid-template-columns: repeat(4, auto);
+  }
+}
+
+@media (max-width: 780px) {
+  .pkmn-list-container {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+
+@media (max-width: 540px) {
+  .pkmn-list-container {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
 .compare-btn {
   background-color: #fbe059;
   color: #090803;

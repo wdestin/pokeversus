@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { SearchService } from '../search.service';
-import { PokemonService } from '../pokemon.service';
+import { SearchService } from '../services/search.service';
+import { PokemonService } from '../services/pokemon.service';
 import { Pokemon } from '../pokemon';
 import { environment } from '../../environments/environment';
 

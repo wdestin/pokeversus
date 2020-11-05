@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { PokemonsComponent } from './pokemons/pokemons.component';
 import { PokemonsComparisonComponent } from './pokemons-comparison/pokemons-comparison.component';
 import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
-import { LeadingZeroesPipe } from './leading-zeroes.pipe';
+import { LeadingZeroesPipe } from './pipes/leading-zeroes.pipe';
 import { HeaderComponent } from './header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';

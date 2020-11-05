@@ -3,7 +3,7 @@
   <hr class="my-4" />
 </div>
 <div
-  class="container pkmn-list-container"
+  class="container"
   infiniteScroll
   [infiniteScrollDistance]="1"
   [infiniteScrollThrottle]="50"
@@ -14,10 +14,7 @@
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-  <div
-    *ngIf="pokemons && pokemons.length > 0"
-    class="row justify-content-center"
-  >
+  <div *ngIf="pokemons && pokemons.length > 0" class="pkmn-list-container">
     <app-pokemon-card
       *ngFor="let pokemon of pokemons.slice(0, numberOfPokemonsToShow)"
       [pokemon]="pokemon"
